@@ -932,7 +932,7 @@ body.slate{--bg:#0d1117;--wh:#161b22;--bd:#30363d;--bdl:#21262d;--tx:#c9d1d9;--s
       </button>
     </div>
   </div>
-  <div class="home-footer"> ❤️ by <strong>Psychokwak</strong> &nbsp;·&nbsp; Y5 Question Bank</div>
+  <div class="home-footer">Made with ❤️ by <strong>Psychokwak</strong> &nbsp;·&nbsp; Y5 Question Bank</div>
 </div>
 
 <!-- ALL SUBJECTS HUB -->
@@ -1167,7 +1167,7 @@ body.slate{--bg:#0d1117;--wh:#161b22;--bd:#30363d;--bdl:#21262d;--tx:#c9d1d9;--s
     </div>
   </div>
   <div style="text-align:center;padding:16px 24px 0;"><button onclick="openT();setTimeout(()=>{document.getElementById('t-reset-btn').scrollIntoView({behavior:'smooth',block:'center'});},200)" style="background:none;border:1px solid var(--bd);border-radius:6px;padding:7px 18px;font-size:12px;color:var(--mut);cursor:pointer;font-family:'IBM Plex Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='#dc2626';this.style.color='#dc2626'" onmouseout="this.style.borderColor='';this.style.color=''">🗑 Reset Progress</button></div>
-  <div class="home-footer" id="home-footer-txt">  ❤️ by <strong>Psychokwak</strong> &nbsp;·&nbsp; Ophtalmo · Year 5</div>
+  <div class="home-footer" id="home-footer-txt">Made with ❤️ by <strong>Psychokwak</strong> &nbsp;·&nbsp; Ophtalmo · Year 5</div>
 </div>
 
 <!-- GAME -->
@@ -1224,6 +1224,18 @@ body.slate{--bg:#0d1117;--wh:#161b22;--bd:#30363d;--bdl:#21262d;--tx:#c9d1d9;--s
         <button class="qflag" id="g-flag" onclick="toggleFlag()">🚩 <span id="g-ftxt">Flag</span></button>
       </div>
       <div class="timed-bar" id="timed-bar"><div class="timed-bar-fill" id="timed-bar-fill"></div></div>
+      <!-- HIGHLIGHT TOOLBAR -->
+      <div class="hl-toolbar" id="hl-toolbar">
+        <span class="hl-label">Highlight</span>
+        <button class="hl-sw" data-color="yellow" onclick="setHL('yellow')" title="Yellow" style="background:#fef08a"></button>
+        <button class="hl-sw" data-color="green"  onclick="setHL('green')"  title="Green"  style="background:#bbf7d0"></button>
+        <button class="hl-sw" data-color="pink"   onclick="setHL('pink')"   title="Pink"   style="background:#fbcfe8"></button>
+        <button class="hl-sw" data-color="blue"   onclick="setHL('blue')"   title="Blue"   style="background:#bfdbfe"></button>
+        <button class="hl-sw" data-color="orange" onclick="setHL('orange')" title="Orange" style="background:#fed7aa"></button>
+        <div class="hl-sep"></div>
+        <button class="hl-erase" id="hl-erase-btn" onclick="setHL('eraser')" title="Click a highlight to erase it">✕ Erase</button>
+        <button class="hl-clearall" onclick="clearAllHL()" title="Remove all highlights from this question">Clear all</button>
+      </div>
       <div class="qp-body">
         <div class="q-stem" id="g-stem"></div>
         <div class="opt-list" id="g-opts"></div>
@@ -3582,7 +3594,7 @@ function loadSubject(key) {
   document.querySelector('#scr-home .tb-brand').innerHTML = sm.label + ' QCM &nbsp;·&nbsp; <b>Psychokwak</b>';
   document.querySelector('#scr-home .home-ey').textContent = sm.label.toUpperCase() + ' · YEAR 5 · QUESTION BANK';
   document.querySelector('#scr-home .home-h1').textContent = sm.label + ' Question Bank';
-  const hf=document.getElementById('home-footer-txt');if(hf)hf.innerHTML='  ❤️ by <strong>Psychokwak</strong> &nbsp;·&nbsp; '+sm.label+' · Year 5';
+  const hf=document.getElementById('home-footer-txt');if(hf)hf.innerHTML='Made with ❤️ by <strong>Psychokwak</strong> &nbsp;·&nbsp; '+sm.label+' · Year 5';
   document.querySelector('#scr-game .tb-brand').innerHTML = sm.label + ' · <b>Psychokwak</b>';
   document.getElementById('m-sub').textContent = sm.label;
   // Show home screen
@@ -5927,6 +5939,26 @@ showSt=function(r){
 };
 </script>
 <style>
+/* ── HIGHLIGHT TOOLBAR ── */
+.hl-toolbar{display:flex;align-items:center;gap:5px;padding:6px 20px;border-bottom:1px solid var(--bdl);background:var(--bg);flex-shrink:0;flex-wrap:wrap;}
+.hl-label{font-size:10px;color:var(--mut);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-right:2px;white-space:nowrap;}
+.hl-sw{width:21px;height:21px;border-radius:50%;border:2.5px solid transparent;cursor:pointer;transition:transform .12s,border-color .12s,box-shadow .12s;flex-shrink:0;padding:0;}
+.hl-sw:hover{transform:scale(1.22);}
+.hl-sw.on{border-color:#1a56db;box-shadow:0 0 0 2px rgba(26,86,219,.25);}
+.hl-erase{background:none;border:1.5px solid var(--bd);border-radius:4px;color:var(--mut);cursor:pointer;font-size:11px;font-weight:700;padding:2px 7px;font-family:'IBM Plex Sans',sans-serif;transition:all .12s;white-space:nowrap;}
+.hl-erase:hover{border-color:#dc2626;color:#dc2626;}
+.hl-erase.on{border-color:#dc2626;color:#dc2626;background:#fef2f2;}
+.hl-sep{width:1px;height:18px;background:var(--bdl);margin:0 2px;flex-shrink:0;}
+.hl-clearall{background:none;border:1.5px solid var(--bd);border-radius:4px;color:var(--mut);cursor:pointer;font-size:10px;font-weight:600;padding:2px 8px;font-family:'IBM Plex Sans',sans-serif;transition:all .12s;white-space:nowrap;}
+.hl-clearall:hover{border-color:var(--am);color:var(--am);}
+mark.q-hl{border-radius:2px;padding:0 1px;cursor:pointer;transition:filter .1s;}
+mark.q-hl:hover{filter:brightness(.92);}
+.qp-body.hl-picking{cursor:crosshair !important;}
+.qp-body.hl-picking *{cursor:crosshair !important;}
+.qp-body.hl-picking mark.q-hl{cursor:crosshair !important;}
+.qp-body.hl-erasing mark.q-hl{cursor:not-allowed !important;outline:2px dashed #dc2626;outline-offset:1px;}
+</style>
+<style>
   .qbank-suggest-btn {
     background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 6px;
     padding: 8px 16px; font-size: 14px; font-weight: 600; cursor: pointer;
@@ -6004,6 +6036,173 @@ showSt=function(r){
       btn.innerText = "Send Message";
     });
   });
+</script>
+<script>
+// ═══════════════════════════════════════════════
+// HIGHLIGHT SYSTEM
+// ═══════════════════════════════════════════════
+const HL_COLORS = {yellow:'#fef08a', green:'#bbf7d0', pink:'#fbcfe8', blue:'#bfdbfe', orange:'#fed7aa'};
+let _hlColor = null; // null | 'yellow'|'green'|'pink'|'blue'|'orange'|'eraser'
+const _hlStore = {}; // questionKey -> {stem: html, opts: [html,...]}
+
+function setHL(color) {
+  _hlColor = (_hlColor === color) ? null : color;
+  // Sync swatch UI
+  document.querySelectorAll('.hl-sw').forEach(s => {
+    s.classList.toggle('on', s.dataset.color === _hlColor);
+  });
+  const eraseBtn = document.getElementById('hl-erase-btn');
+  if (eraseBtn) eraseBtn.classList.toggle('on', _hlColor === 'eraser');
+  // Update body cursor
+  const body = document.querySelector('.qp-body');
+  if (body) {
+    body.classList.toggle('hl-picking', !!_hlColor && _hlColor !== 'eraser');
+    body.classList.toggle('hl-erasing', _hlColor === 'eraser');
+  }
+}
+
+function _hlKey() {
+  try { const q = gQ[ci]; return q ? q.section + '_' + q.origIdx : null; } catch(e) { return null; }
+}
+
+function _saveHL() {
+  const k = _hlKey(); if (!k) return;
+  const stem = document.getElementById('g-stem');
+  const opts = document.querySelectorAll('.opt-txt');
+  const stemH = stem ? stem.innerHTML : '';
+  const optsH = Array.from(opts).map(o => o.innerHTML);
+  const hasHL = stemH.includes('<mark') || optsH.some(h => h.includes('<mark'));
+  if (hasHL) {
+    _hlStore[k] = {stem: stemH, opts: optsH};
+  } else {
+    delete _hlStore[k];
+  }
+}
+
+function _attachEraserClicks() {
+  document.querySelectorAll('mark.q-hl').forEach(m => {
+    m.onclick = function(e) {
+      if (_hlColor !== 'eraser') return;
+      e.stopPropagation();
+      const p = m.parentNode;
+      while (m.firstChild) p.insertBefore(m.firstChild, m);
+      p.removeChild(m);
+      // Merge adjacent text nodes
+      p.normalize();
+      _saveHL();
+    };
+  });
+}
+
+function _restoreHL() {
+  const k = _hlKey(); if (!k) return;
+  const saved = _hlStore[k]; if (!saved) return;
+  const stem = document.getElementById('g-stem');
+  if (stem && saved.stem) stem.innerHTML = saved.stem;
+  const opts = document.querySelectorAll('.opt-txt');
+  opts.forEach((o, i) => {
+    if (saved.opts && saved.opts[i] !== undefined) o.innerHTML = saved.opts[i];
+  });
+  _attachEraserClicks();
+}
+
+function clearAllHL() {
+  const k = _hlKey(); if (!k) return;
+  delete _hlStore[k];
+  try {
+    const q = gQ[ci]; if (!q) return;
+    const stem = document.getElementById('g-stem');
+    if (stem) stem.textContent = q.q;
+    const opts = document.querySelectorAll('.opt-txt');
+    const displayOrder = q._optOrder || [...q.opts.keys()];
+    opts.forEach((o, i) => {
+      const origIdx = displayOrder[i];
+      if (origIdx !== undefined) o.innerHTML = q.opts[origIdx];
+    });
+  } catch(e) {}
+}
+
+// Listen for text selection in the question body
+(function() {
+  const qpBody = document.querySelector('.qp-body');
+  if (!qpBody) return;
+
+  qpBody.addEventListener('mouseup', function(e) {
+    if (!_hlColor || _hlColor === 'eraser') return;
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0 || sel.toString().trim() === '') return;
+    const range = sel.getRangeAt(0);
+    const stem = document.getElementById('g-stem');
+    const optsEl = document.getElementById('g-opts');
+    const anchor = range.commonAncestorContainer;
+    const inStem = stem && (stem === anchor || stem.contains(anchor));
+    const inOpts = optsEl && (optsEl === anchor || optsEl.contains(anchor));
+    if (!inStem && !inOpts) { sel.removeAllRanges(); return; }
+
+    try {
+      const mark = document.createElement('mark');
+      mark.className = 'q-hl';
+      mark.style.background = HL_COLORS[_hlColor];
+      mark.onclick = function(ev) {
+        if (_hlColor !== 'eraser') return;
+        ev.stopPropagation();
+        const p = mark.parentNode;
+        while (mark.firstChild) p.insertBefore(mark.firstChild, mark);
+        p.removeChild(mark);
+        p.normalize();
+        _saveHL();
+      };
+      range.surroundContents(mark);
+      sel.removeAllRanges();
+      _saveHL();
+    } catch(err) {
+      // surroundContents fails when selection spans multiple block elements
+      sel.removeAllRanges();
+    }
+  });
+
+  // Touch support
+  qpBody.addEventListener('touchend', function(e) {
+    setTimeout(function() {
+      if (!_hlColor || _hlColor === 'eraser') return;
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0 || sel.toString().trim() === '') return;
+      const range = sel.getRangeAt(0);
+      const stem = document.getElementById('g-stem');
+      const optsEl = document.getElementById('g-opts');
+      const anchor = range.commonAncestorContainer;
+      const inStem = stem && (stem === anchor || stem.contains(anchor));
+      const inOpts = optsEl && (optsEl === anchor || optsEl.contains(anchor));
+      if (!inStem && !inOpts) { sel.removeAllRanges(); return; }
+      try {
+        const mark = document.createElement('mark');
+        mark.className = 'q-hl';
+        mark.style.background = HL_COLORS[_hlColor];
+        mark.onclick = function(ev) {
+          if (_hlColor !== 'eraser') return;
+          ev.stopPropagation();
+          const p = mark.parentNode;
+          while (mark.firstChild) p.insertBefore(mark.firstChild, mark);
+          p.removeChild(mark);
+          p.normalize();
+          _saveHL();
+        };
+        range.surroundContents(mark);
+        sel.removeAllRanges();
+        _saveHL();
+      } catch(err) { sel.removeAllRanges(); }
+    }, 100);
+  });
+})();
+
+// Patch renderQ to restore highlights after each question loads
+(function() {
+  const _origRQ = renderQ;
+  renderQ = function() {
+    _origRQ.apply(this, arguments);
+    requestAnimationFrame(_restoreHL);
+  };
+})();
 </script>
 </body>
 </html>
