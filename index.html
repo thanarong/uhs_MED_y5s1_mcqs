@@ -894,14 +894,14 @@ body.slate{--bg:#0d1117;--wh:#161b22;--bd:#30363d;--bdl:#21262d;--tx:#c9d1d9;--s
         </div>
         <div class="sc-arrow">›</div>
       </button>
-      <button class="scard" onclick="loadSubject('pediatrie')" style="--sc:#4ade80">
+      <button class="scard" disabled style="--sc:#9ca3af;opacity:0.5;cursor:not-allowed;">
         <div class="sc-icon">🍼</div>
         <div class="sc-body">
           <div class="sc-title">Pédiatrie</div>
-          <div class="sc-desc">Médecine pédiatrique Y5</div>
-          <div class="sc-count">377 questions</div>
+          <div class="sc-desc" style="color:#dc2626;font-weight:600;">🔧 Under Maintenance</div>
+          <div class="sc-count">Temporarily unavailable</div>
         </div>
-        <div class="sc-arrow">›</div>
+        <div class="sc-arrow" style="color:#9ca3af;">🔒</div>
       </button>
       <button class="scard" onclick="loadSubject('radiologie')" style="--sc:#94a3b8">
         <div class="sc-icon">🩻</div>
@@ -2228,30 +2228,30 @@ const ALL_DATA = {
  pediatrie: {
     Q: {
       // Pr. Cherng Chea — Syndrome Néphrotique
-       s1: [
-          {q: "1) The main etiology of nephrotic syndrome is:", opts: ["Secondary to viral infection", "Secondary to glomerular diseases", "Secondary to long term prednisolone usage", "Idiopathic", "Secondary to IgA nephropathy"], ans: 3},
-          {q: "2) The main mechanism of edema in nephrotic syndrome is:", opts: ["Retension of salt and water", "Reduce oncotic pressure due to heavy proteinuria", "Increase tissue oncotic pressure", "Oliguria due to renal failure", "Decrease action of renine-angiotensine-aldosterone system"], ans: 1},
-          {q: "3) The increase risk of infection in nephrotic syndrome due to:", opts: ["Hypoprotidemia", "Retention of salt and water", "Increase cholesterolemia", "Loss of urine immunoglobulin", "Low salt imbalance diet"], ans: 3},
-          {q: "4) The hypovitaminosis D in nephrotic syndrome due to:", opts: ["Imbalance diet", "Loss of calcium in stool", "Hemodilution", "Renal insufficiency", "Loss of vitamin D-binding protein"], ans: 4},
-          {q: "5) The most common form histologic finding of nephrotic syndrome in children is:", opts: ["mesangial proliferation", "minimal change disease", "focal segmental glomerulosclerosis", "membranoproliferative glomerulonephritis", "Normal structure of glomerula"], ans: 1},
-          {q: "6) Nephrotic range proteinuria in nephrotic syndrome is:", opts: ["Proteinuria ≥ 40 mg/kg/24h", "Proteinuria ≥ 45 mg/kg/24h", "Proteinuria ≥ 50 mg/kg/24h", "Proteinuria ≥ 55 mg/kg/24h", "Proteinuria ≥ 60 mg/kg/24h"], ans: 2},
-          {q: "7) Serum albumin in nephrotic syndrome is classically:", opts: ["Albuminemia ˂ 20g/L", "Albuminemia ˂ 25g/L", "Albuminemia < 30g/L", "Albuminemia ˂ 35g/L", "Albuminemia ˂ 40g/L"], ans: 2},
-          {q: "8) Characteristic of proteinuria in nephrotic syndrome is:", opts: ["Selective", "Mixed", "Minime", "Immunoglobulin (G)", "Mainly protein"], ans: 0},
-          {q: "9) The most common reason of proteinuria in minimal change nephrotic syndrome is:", opts: ["separation of the epithelial podocyte from the glomerular basement membrane", "appearance of gaps in the glomerular basement membrane through which elements of blood, including cells, may pass", "loss of negative charge along the glomerular basement membrane and the epithelial cell surface", "Different between oncotic pressure and hydrostatic pressure that allow protein to pass freely"], ans: 2},
-          {q: "10) Increase lipid level seen in nephrotic syndrome patient caused by:", opts: ["Increase lipoprotein synthesis by liver and decrease lipid cathabolism", "Liver failure could not break down fat", "Increase lipoprotein uptake by liver to synthesis of protein", "High dose steroid usually increase lipid level in nephrotic syndrome patient", "Decrease lipoprotein lipase production"], ans: 0},
-          {q: "11) Complement C3 in nephrotic syndrome was usually:", opts: ["Elevated", "Decrease", "Normal", "Not found", "Equivocal"], ans: 2},
-          {q: "12) Serum calcium level may decrease due to:", opts: ["Low oral intake of calcium", "Massive edema", "Low protidemia", "High dose of steroid", "Malabsortion of calcium"], ans: 4},
-          {q: "13) Management of edema in nephrotic syndrome patient:", opts: ["Give furosemide 1mg/kg and potassium supplement when the diagnosis is made", "Restrict water and salt intake", "Ask patient to eat high protein food 50g/kg", "Ask patient to sleep with his/her feet-up to facilitate blood flow", "Drink water only 50ml/kg/day"], ans: 1},
-          {q: "14) Furosemide should be used in caution in patient with nephrotic syndrome because it may induce:", opts: ["Hypovolemic shock", "Hyponatremia", "Hypokalemia", "Electrolyte imbalance", "Renal failure"], ans: 4},
-          {q: "15) Risk of thrombosis in nephrotic syndrome patient due to:", opts: ["Loss of antithrombin III and plasminogen via urine, along with the simultaneous increase in clotting factors", "Hemoconcentration along with immobility and infection", "The use high dose of steroid with hemoconcentration", "The use of diuretic in hypovolemic state", "Increase lipide level with hypocalcemia"], ans: 0},
-          {q: "16) Treatment of idiopathic nephrotic syndrome with steroid, the time needed to response to prednisolone average is:", opts: ["5 days", "7 days", "10 days", "14 days", "21 days"], ans: 3},
-          {q: "17) We considered as steroid resistant nephrotic syndrome when proteinuria after 1 month of steroid therapy at level:", opts: ["≥ ++", "≥ +++", "≥ ++++", "≥ +++++"], ans: 0},
-          {q: "18) Albumin perfusion can be used at the dose:", opts: ["0.5g/kg given IV over 2 –4h", "1g/kg given IV over 2 –4h", "1.5g/kg given IV over 2 –4h", "2g/kg given IV over 2 –4h", "2.5g/kg given IV over 2 –4h"], ans: 1},
-          {q: "19) Prednisolone is mainly effective in the treatment of nephrotic syndrome in the form:", opts: ["Mesangial proliferation", "Focal segmental glomerulosclerosis", "Minimal change disease", "Membranous nephropathy", "Multiple sclerosis"], ans: 2},
-          {q: "20) In steroid resistant nephrotic syndrome, the following drug should be used:", opts: ["High dose steroid", "Cyclosporine", "Cyclosphosphamide (Endoxan)", "High dose diuretic plus albumin perfusion", "Diuretic plus Lopril"], ans: 2}
-        ],
+      s1: [
+        {q: "1) The main etiology of nephrotic syndrome is:", opts: ["Secondary to viral infection", "Secondary to glomerular diseases", "Secondary to long term prednisolone usage", "Idiopathic", "Secondary to IgA nephropathy"], ans: 3},
+        {q: "2) The main mechanism of edema in nephrotic syndrome is:", opts: ["Retension of salt and water", "Reduce oncotic pressure due to heavy proteinuria", "Increase tissue oncotic pressure", "Oliguria due to renal failure", "Decrease action of renine-angiotensine-aldosterone system"], ans: 1},
+        {q: "3) The increase risk of infection in nephrotic syndrome due to:", opts: ["Hypoprotidemia", "Retention of salt and water", "Increase cholesterolemia", "Loss of urine immunoglobulin", "Low salt imbalance diet"], ans: 3},
+        {q: "4) The hypovitaminosis D in nephrotic syndrome due to:", opts: ["Imbalance diet", "Loss of calcium in stool", "Hemodilution", "Renal insufficiency", "Loss of vitamin D-binding protein"], ans: 4},
+        {q: "5) The most common form histologic finding of nephrotic syndrome in children is:", opts: ["mesangial proliferation", "minimal change disease", "focal segmental glomerulosclerosis", "membranoproliferative glomerulonephritis", "Normal structure of glomerula"], ans: 1},
+        {q: "6) Nephrotic range proteinuria in nephrotic syndrome is:", opts: ["Proteinuria ≥ 40 mg/kg/24h", "Proteinuria ≥ 45 mg/kg/24h", "Proteinuria ≥ 50 mg/kg/24h", "Proteinuria ≥ 55 mg/kg/24h", "Proteinuria ≥ 60 mg/kg/24h"], ans: 2},
+        {q: "7) Serum albumin in nephrotic syndrome is classically:", opts: ["Albuminemia ˂ 20g/L", "Albuminemia ˂ 25g/L", "Albuminemia < 30g/L", "Albuminemia ˂ 35g/L", "Albuminemia ˂ 40g/L"], ans: 2},
+        {q: "8) Characteristic of proteinuria in nephrotic syndrome is:", opts: ["Selective", "Mixed", "Minime", "Immunoglobulin (G)", "Mainly protein"], ans: 0},
+        {q: "9) The most common reason of proteinuria in minimal change nephrotic syndrome is:", opts: ["separation of the epithelial podocyte from the glomerular basement membrane", "appearance of gaps in the glomerular basement membrane through which elements of blood, including cells, may pass", "loss of negative charge along the glomerular basement membrane and the epithelial cell surface", "Different between oncotic pressure and hydrostatic pressure that allow protein to pass freely"], ans: 2},
+        {q: "10) Increase lipid level seen in nephrotic syndrome patient caused by:", opts: ["Increase lipoprotein synthesis by liver and decrease lipid cathabolism", "Liver failure could not break down fat", "Increase lipoprotein uptake by liver to synthesis of protein", "High dose steroid usually increase lipid level in nephrotic syndrome patient", "Decrease lipoprotein lipase production"], ans: 0},
+        {q: "11) Complement C3 in nephrotic syndrome was usually:", opts: ["Elevated", "Decrease", "Normal", "Not found", "Equivocal"], ans: 2},
+        {q: "12) Serum calcium level may decrease due to:", opts: ["Low oral intake of calcium", "Massive edema", "Low protidemia", "High dose of steroid", "Malabsortion of calcium"], ans: 4},
+        {q: "13) Management of edema in nephrotic syndrome patient:", opts: ["Give furosemide 1mg/kg and potassium supplement when the diagnosis is made", "Restrict water and salt intake", "Ask patient to eat high protein food 50g/kg", "Ask patient to sleep with his/her feet-up to facilitate blood flow", "Drink water only 50ml/kg/day"], ans: 1},
+        {q: "14) Furosemide should be used in caution in patient with nephrotic syndrome because it may induce:", opts: ["Hypovolemic shock", "Hyponatremia", "Hypokalemia", "Electrolyte imbalance", "Renal failure"], ans: 4},
+        {q: "15) Risk of thrombosis in nephrotic syndrome patient due to:", opts: ["Loss of antithrombin III and plasminogen via urine, along with the simultaneous increase in clotting factors", "Hemoconcentration along with immobility and infection", "The use high dose of steroid with hemoconcentration", "The use of diuretic in hypovolemic state", "Increase lipide level with hypocalcemia"], ans: 0},
+        {q: "16) Treatment of idiopathic nephrotic syndrome with steroid, the time needed to response to prednisolone average is:", opts: ["5 days", "7 days", "10 days", "14 days", "21 days"], ans: 3},
+        {q: "17) We considered as steroid resistant nephrotic syndrome when proteinuria after 1 month of steroid therapy at level:", opts: ["≥ ++", "≥ +++", "≥ ++++", "≥ +++++"], ans: 0},
+        {q: "18) Albumin perfusion can be used at the dose:", opts: ["0.5g/kg given IV over 2 –4h", "1g/kg given IV over 2 –4h", "1.5g/kg given IV over 2 –4h", "2g/kg given IV over 2 –4h", "2.5g/kg given IV over 2 –4h"], ans: 1},
+        {q: "19) Prednisolone is mainly effective in the treatment of nephrotic syndrome in the form:", opts: ["Mesangial proliferation", "Focal segmental glomerulosclerosis", "Minimal change disease", "Membranous nephropathy", "Multiple sclerosis"], ans: 2},
+        {q: "20) In steroid resistant nephrotic syndrome, the following drug should be used:", opts: ["High dose steroid", "Cyclosporine", "Cyclosphosphamide (Endoxan)", "High dose diuretic plus albumin perfusion", "Diuretic plus Lopril"], ans: 2}
+      ],
       // Pr. Kim Ang — Méningite & Épilepsie
-       s2: [
+      s2: [
         {q: "1) La méningite est une inflammation des méninges dont l'étiologie la plus fréquente est :", opts: ["bactérienne", "tuberculeuse", "parasitaire", "virale", "mycosique"], ans: 3},
         {q: "2) La pénétration des germes de portages du rhinopharynx dans le LCR se fait par :", opts: ["voie hématogène et voie respiratoire", "voie hématogène ou par extension d’un foyer régional de voisinage", "contamination directe le plus souvent", "septicémie ou bactériémie et voie respiratoire", "thrombophlébite locale et voie respiratoire"], ans: 1},
         {q: "3) Les germes se multiplient très rapidement dans le LCR car dans le LCR :", opts: ["il y a peu de glucose", "il y a trop de glucose", "il n’existe pas de monocyte", "il n’existe aucune bactéricide naturelle", "la production de cytokines (TNFalpha, interleukine 1 et 6) est insuffisante"], ans: 3},
@@ -3574,6 +3574,10 @@ function renderSubjectPicker(){
   });
 }
 function loadSubject(key) {
+  if (key === 'pediatrie') {
+    alert('🔧 Pédiatrie is temporarily unavailable for maintenance. Please check back later.');
+    return;
+  }
   SUBJ = key;
   const d = ALL_DATA[key];
   Q = d.Q;
