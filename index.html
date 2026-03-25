@@ -1072,7 +1072,8 @@ body.slate{--bg:#0d1117;--wh:#161b22;--bd:#30363d;--bdl:#21262d;--tx:#c9d1d9;--s
     </div>
     <div class="m-review" id="m-review"></div>
     <div class="m-ftr" id="m-ftr">
-      <button class="m-btn secondary" onclick="closeM();goHome()" id="m-btn-home">← Back</button>
+      <button class="m-btn secondary" onclick="closeM();goHome()" id="m-btn-home">🏠 Home</button>
+      <button class="m-btn secondary" onclick="closeM();backToSubject()" id="m-btn-back">← Back</button>
       <button class="m-btn secondary" id="m-retry-wrong" onclick="closeM();retryWrong()" style="display:none">🔁 Retry Wrong</button>
       <button class="m-btn secondary" id="m-btn-resume" onclick="closeM();resumeCurrentBlock()" style="display:none">⏩ Resume Block</button>
       <button class="m-btn primary" onclick="closeM();retryGame()" id="m-btn-retake">🔁 Retake Block</button>
@@ -4254,21 +4255,24 @@ function endBlock(){
 
   // Configure modal buttons based on context
   const homeBtn=document.getElementById('m-btn-home');
+  const backBtn=document.getElementById('m-btn-back');
   const retakeBtn=document.getElementById('m-btn-retake');
   const resumeBtn=document.getElementById('m-btn-resume');
   if(_lastCompletedRoundBlock){
     // Hub block just finished
-    if(homeBtn){homeBtn.textContent='🏠 Hub';homeBtn.onclick=()=>{closeM();goHome();};}
+    if(homeBtn){homeBtn.textContent='🏠 Home';homeBtn.onclick=()=>{closeM();goHome();};}
+    if(backBtn){backBtn.textContent='← Hub';backBtn.onclick=()=>{closeM();backToSubject();};}
     if(retakeBtn){retakeBtn.textContent='🔁 Retake Block';retakeBtn.style.display='';}
     if(resumeBtn)resumeBtn.style.display='none';
   } else if(_activeRoundBlock===null && typeof cs==='string' && cs.startsWith('hub_')){
-    // Hub game but block wasn't tracked (shouldn't happen, but safe fallback)
-    if(homeBtn){homeBtn.textContent='🏠 Hub';homeBtn.onclick=()=>{closeM();goHome();};}
+    if(homeBtn){homeBtn.textContent='🏠 Home';homeBtn.onclick=()=>{closeM();goHome();};}
+    if(backBtn){backBtn.textContent='← Hub';backBtn.onclick=()=>{closeM();backToSubject();};}
     if(retakeBtn)retakeBtn.style.display='';
     if(resumeBtn)resumeBtn.style.display='none';
   } else {
     // Single-subject game
-    if(homeBtn){homeBtn.textContent='← Subjects';homeBtn.onclick=()=>{closeM();goHome();};}
+    if(homeBtn){homeBtn.textContent='🏠 Home';homeBtn.onclick=()=>{closeM();goHome();};}
+    if(backBtn){backBtn.textContent='← Subject';backBtn.onclick=()=>{closeM();backToSubject();};}
     if(retakeBtn){retakeBtn.textContent='🔁 Retake';retakeBtn.style.display='';}
     if(resumeBtn)resumeBtn.style.display='none';
   }
@@ -6121,6 +6125,99 @@ function clearAllHL() {
     });
   } catch(e) {}
 }
+
+// ── HISTORY API: browser/phone back button support ──
+// Screens: 'subjects' → 'home' → 'game' (with modal on top)
+// Each time we navigate forward we push a state; popstate navigates back.
+
+function _pushState(screen){
+  try{history.pushState({screen},'',location.pathname+location.search);}catch(e){}
+}
+
+// Patch navigation functions to push history states
+(function(){
+  // ── Wrap loadSubject (subjects → home) ──
+  const _origLS = window.loadSubject;
+  window.loadSubject = function(){
+    _origLS.apply(this, arguments);
+    _pushState('home');
+  };
+
+  // ── Wrap startGame (home → game) ──
+  const _origSG = window.startGame;
+  window.startGame = function(){
+    _origSG.apply(this, arguments);
+    _pushState('game');
+  };
+
+  // ── Wrap startExamSimulator if present ──
+  const _origSES = window.startExamSimulator;
+  if(_origSES){
+    window.startExamSimulator = function(){
+      _origSES.apply(this, arguments);
+      _pushState('game');
+    };
+  }
+
+  // ── Wrap openAllHub (subjects → all-hub) ──
+  const _origOAH = window.openAllHub;
+  if(_origOAH){
+    window.openAllHub = function(){
+      _origOAH.apply(this, arguments);
+      _pushState('all');
+    };
+  }
+
+  // ── Wrap _launchHubGame (all-hub → game) ──
+  const _origLHG = window._launchHubGame;
+  if(_origLHG){
+    window._launchHubGame = function(){
+      _origLHG.apply(this, arguments);
+      _pushState('game');
+    };
+  }
+})();
+
+// Push initial state so the very first popstate has something to land on
+try{history.replaceState({screen:'subjects'},'',location.pathname+location.search);}catch(e){}
+
+window.addEventListener('popstate', function(e){
+  const screen = e.state && e.state.screen;
+
+  // If results modal is open, close it first
+  const mw = document.getElementById('modal-wrap');
+  if(mw && mw.classList.contains('on')){
+    closeM();
+    // Push the state back so the next back press still works
+    _pushState(screen || 'game');
+    return;
+  }
+
+  const gameVisible  = document.getElementById('scr-game')  && document.getElementById('scr-game').style.display  !== 'none';
+  const homeVisible  = document.getElementById('scr-home')  && document.getElementById('scr-home').style.display  !== 'none';
+  const allVisible   = document.getElementById('scr-all')   && document.getElementById('scr-all').style.display   !== 'none';
+
+  if(gameVisible){
+    // Game → go back one page (subject home or all-hub)
+    backToSubject();
+    return;
+  }
+  if(homeVisible){
+    // Subject home → go to subject picker
+    document.getElementById('scr-home').style.display = 'none';
+    const ss = document.getElementById('scr-subjects');
+    ss.style.display = '';
+    renderSubjectPicker();
+    refreshAllShuffleBtns();
+    return;
+  }
+  if(allVisible){
+    // All-hub → go to subject picker
+    backFromAll();
+    return;
+  }
+  // Already at subjects — nothing to do
+});
 
 // Listen for text selection in the question body
 (function() {
